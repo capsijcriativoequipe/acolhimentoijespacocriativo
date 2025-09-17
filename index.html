@@ -175,6 +175,29 @@ pre {
   <label>Rotina:</label><textarea id="rotina" rows="3"></textarea>
   <label>Educação:</label><textarea id="educacao" rows="3"></textarea>
 
+  <!-- Novos campos: Saúde e Comportamento -->
+  <h3>Saúde e Comportamento</h3>
+  <label>Uso de medicamentos:</label>
+  <div class="inline-group">
+    <select id="uso_medicamentos"><option>Não</option><option>Sim</option></select>
+    <input type="text" id="quais_medicamentos" placeholder="Se sim, quais?">
+  </div>
+  <label>Alimentação:</label>
+  <div class="inline-group">
+    <select id="alimentacao"><option>Variedade</option><option>Seletividade</option></select>
+    <input type="text" id="quais_alimentos" placeholder="Se seletivo, quais alimentos?">
+  </div>
+  <label>Uso de telas:</label>
+  <div class="inline-group">
+    <select id="uso_telas"><option>Não</option><option>Sim</option></select>
+    <input type="text" id="como_telas" placeholder="Se sim, como?">
+  </div>
+  <label>Sono:</label>
+  <div class="inline-group">
+    <select id="sono"><option>Regular</option><option>Irregular</option></select>
+    <input type="text" id="sono_irregular" placeholder="Se irregular, descrever">
+  </div>
+
   <!-- Sociabilidade -->
   <h3>Sociabilidade</h3>
   <label>Sociabilidade:</label>
@@ -256,6 +279,12 @@ function gerarResumo(){
     if(cb.checked) resumo += cb.value+', ';
   });
   resumo = resumo.replace(/, $/,'')+'\n';
+
+  resumo += '📌 Saúde e Comportamento\n';
+  resumo += 'Uso de medicamentos: '+document.getElementById('uso_medicamentos').value+' - Quais: '+document.getElementById('quais_medicamentos').value+'\n';
+  resumo += 'Alimentação: '+document.getElementById('alimentacao').value+' - Se seletivo: '+document.getElementById('quais_alimentos').value+'\n';
+  resumo += 'Uso de telas: '+document.getElementById('uso_telas').value+' - Como: '+document.getElementById('como_telas').value+'\n';
+  resumo += 'Sono: '+document.getElementById('sono').value+' - Se irregular: '+document.getElementById('sono_irregular').value+'\n';
 
   resumo += 'Sociabilidade: '+document.getElementById('sociabilidade').value+' - Com quem: '+document.getElementById('com_quem_sociabiliza').value+'\n';
   resumo += 'Exposição a violências: '+document.getElementById('violencias').value+' - Tipo: '+document.getElementById('tipo_violencia').value+'\n';
