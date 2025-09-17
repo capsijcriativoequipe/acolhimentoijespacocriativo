@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ficha de Acolhimento - CAPS Infantil</title>
+<title>Ficha de Acolhimento - Caps Ij Espaço Criativo</title>
 <style>
 body {
   font-family: 'Comic Sans MS', Arial, sans-serif;
@@ -76,13 +76,13 @@ pre {
 </head>
 <body>
 
-<h1>Ficha de Acolhimento - CAPS Infantil</h1>
+<h1>Ficha de Acolhimento - Caps Ij Espaço Criativo</h1>
 
 <form id="fichaForm">
   <!-- Tipo de Atendimento -->
   <h3>Tipo de Atendimento</h3>
-  <label><input type="radio" name="tipo_atendimento" value="Acolhimento inicial no Caps Ij Espaço Criativo"> Acolhimento inicial</label>
-  <label><input type="radio" name="tipo_atendimento" value="Reacolhimento no Caps Ij Espaço Criativo"> Reacolhimento</label>
+  <label><input type="radio" name="tipo_atendimento" value="Acolhimento inicial"> Acolhimento inicial</label>
+  <label><input type="radio" name="tipo_atendimento" value="Reacolhimento"> Reacolhimento</label>
 
   <!-- Dados Pessoais -->
   <h3>Dados Pessoais</h3>
@@ -155,6 +155,8 @@ pre {
   <label>Queixa principal:</label><textarea id="queixa" rows="3"></textarea>
   <label>Histórico e acompanhamento em saúde mental do paciente e família:</label><textarea id="historico" rows="4"></textarea>
   <label>Marcos e alterações do desenvolvimento neuropsicomotor:</label><textarea id="marcos" rows="4"></textarea>
+
+  <!-- Com quem vive -->
   <label>Com quem vive (organização/contexto familiar):</label>
   <div class="checkbox-group" id="familia-group">
     <label><input type="checkbox" value="Pai"> Pai</label>
@@ -167,34 +169,37 @@ pre {
     <label><input type="checkbox" value="Primos"> Primos</label>
     <label><input type="checkbox" value="Madrasta"> Madrasta</label>
     <label><input type="checkbox" value="Padrasto"> Padrasto</label>
+    <label><input type="checkbox" id="abrigamento-checkbox" value="Abrigamento"> Abrigamento</label>
   </div>
+  <input type="text" id="qual_abrigamento" placeholder="Se abrigamento, qual?" style="display:none; margin-top:6px;">
 
-  <!-- Cotidiano -->
-  <h3>Cotidiano e Rotina</h3>
+  <!-- Cotidiano e Saúde -->
+  <h3>Cotidiano, Alimentação e Saúde</h3>
   <label>Cotidiano:</label><textarea id="cotidiano" rows="3"></textarea>
   <label>Rotina:</label><textarea id="rotina" rows="3"></textarea>
   <label>Educação:</label><textarea id="educacao" rows="3"></textarea>
 
-  <!-- Novos campos: Saúde e Comportamento -->
-  <h3>Saúde e Comportamento</h3>
   <label>Uso de medicamentos:</label>
   <div class="inline-group">
     <select id="uso_medicamentos"><option>Não</option><option>Sim</option></select>
     <input type="text" id="quais_medicamentos" placeholder="Se sim, quais?">
   </div>
+
   <label>Alimentação:</label>
   <div class="inline-group">
     <select id="alimentacao"><option>Variedade</option><option>Seletividade</option></select>
     <input type="text" id="quais_alimentos" placeholder="Se seletivo, quais alimentos?">
   </div>
+
   <label>Uso de telas:</label>
   <div class="inline-group">
     <select id="uso_telas"><option>Não</option><option>Sim</option></select>
     <input type="text" id="como_telas" placeholder="Se sim, como?">
   </div>
+
   <label>Sono:</label>
   <div class="inline-group">
-    <select id="sono"><option>Regular</option><option>Irregular</option></select>
+    <select id="sono"><option>Regular</option><option>Padrão irregular</option></select>
     <input type="text" id="sono_irregular" placeholder="Se irregular, descrever">
   </div>
 
@@ -219,8 +224,8 @@ pre {
   </div>
 
   <!-- Observações -->
-  <h3>Observações</h3>
-  <label>Exame Psíquico / Observações:</label><textarea id="exame" rows="4"></textarea>
+  <h3>Exame Psíquico / Observações</h3>
+  <textarea id="exame" rows="4"></textarea>
 
   <button type="button" onclick="gerarResumo()">Gerar Resumo</button>
 </form>
@@ -233,6 +238,12 @@ function getRadioValue(name){
   const r = document.querySelector('input[name="'+name+'"]:checked');
   return r ? r.value : '';
 }
+
+// Mostrar/ocultar campo de qual abrigo
+document.getElementById('abrigamento-checkbox').addEventListener('change', function() {
+  const campoAbrigo = document.getElementById('qual_abrigamento');
+  campoAbrigo.style.display = this.checked ? 'block' : 'none';
+});
 
 function gerarResumo(){
   let resumo = '';
@@ -269,7 +280,7 @@ function gerarResumo(){
 
   resumo += '\n📌 Dados Gerais\n';
   const camposGerais = ['queixa','historico','marcos','cotidiano','rotina','educacao','atividades','exame'];
-  const labelsGerais = ['Queixa principal','Histórico e acompanhamento','Marcos do desenvolvimento','Cotidiano','Rotina','Educação','Atividades da vida diárias','Observações/Exame Psíquico'];
+  const labelsGerais = ['Queixa principal','Histórico e acompanhamento','Marcos do desenvolvimento','Cotidiano','Rotina','Educação','Atividades da vida diárias','Exame Psíquico / Observações'];
   camposGerais.forEach((id,i)=>{
     resumo += labelsGerais[i]+': '+document.getElementById(id).value+'\n';
   });
@@ -278,14 +289,16 @@ function gerarResumo(){
   document.querySelectorAll('#familia-group input[type=checkbox]').forEach(cb=>{
     if(cb.checked) resumo += cb.value+', ';
   });
+  if(document.getElementById('abrigamento-checkbox').checked){
+    resumo += 'Qual abrigo: '+document.getElementById('qual_abrigamento').value;
+  }
   resumo = resumo.replace(/, $/,'')+'\n';
 
-  resumo += '📌 Saúde e Comportamento\n';
-  resumo += 'Uso de medicamentos: '+document.getElementById('uso_medicamentos').value+' - Quais: '+document.getElementById('quais_medicamentos').value+'\n';
-  resumo += 'Alimentação: '+document.getElementById('alimentacao').value+' - Se seletivo: '+document.getElementById('quais_alimentos').value+'\n';
-  resumo += 'Uso de telas: '+document.getElementById('uso_telas').value+' - Como: '+document.getElementById('como_telas').value+'\n';
-  resumo += 'Sono: '+document.getElementById('sono').value+' - Se irregular: '+document.getElementById('sono_irregular').value+'\n';
-
+  resumo += 'Uso de medicamentos: '+document.getElementById('uso_medicamentos').value+' - '+document.getElementById('quais_medicamentos').value+'\n';
+  resumo += 'Alimentação: '+document.getElementById('alimentacao').value+' - '+document.getElementById('quais_alimentos').value+'\n';
+  resumo += 'Uso de telas: '+document.getElementById('uso_telas').value+' - '+document.getElementById('como_telas').value+'\n';
+  resumo += 'Sono: '+document.getElementById('sono').value+' - '+document.getElementById('sono_irregular').value+'\n';
+  
   resumo += 'Sociabilidade: '+document.getElementById('sociabilidade').value+' - Com quem: '+document.getElementById('com_quem_sociabiliza').value+'\n';
   resumo += 'Exposição a violências: '+document.getElementById('violencias').value+' - Tipo: '+document.getElementById('tipo_violencia').value+'\n';
 
