@@ -81,8 +81,8 @@ pre {
 <form id="fichaForm">
   <!-- Tipo de Atendimento -->
   <h3>Tipo de Atendimento</h3>
-  <label><input type="radio" name="tipo_atendimento" value="Acolhimento inicial no CAPS IJ"> Acolhimento inicial</label>
-  <label><input type="radio" name="tipo_atendimento" value="Reacolhimento no CAPS IJ"> Reacolhimento</label>
+  <label><input type="radio" name="tipo_atendimento" value="Acolhimento inicial"> Acolhimento inicial</label>
+  <label><input type="radio" name="tipo_atendimento" value="Reacolhimento"> Reacolhimento</label>
 
   <!-- Dados Pessoais -->
   <h3>Dados Pessoais</h3>
@@ -155,7 +155,6 @@ pre {
   <label>Queixa principal:</label><textarea id="queixa" rows="3"></textarea>
   <label>Histórico e acompanhamento em saúde mental do paciente e família:</label><textarea id="historico" rows="4"></textarea>
   <label>Marcos e alterações do desenvolvimento neuropsicomotor:</label><textarea id="marcos" rows="4"></textarea>
-
   <label>Com quem vive (organização/contexto familiar):</label>
   <div class="checkbox-group" id="familia-group">
     <label><input type="checkbox" value="Pai"> Pai</label>
@@ -168,30 +167,15 @@ pre {
     <label><input type="checkbox" value="Primos"> Primos</label>
     <label><input type="checkbox" value="Madrasta"> Madrasta</label>
     <label><input type="checkbox" value="Padrasto"> Padrasto</label>
-    <label><input type="checkbox" id="abrigamento-checkbox"> Abrigamento</label>
-    <input type="text" id="qual_abrigamento" placeholder="Qual abrigo?">
+    <label><input type="checkbox" id="abrigamento-checkbox" value="Abrigamento"> Abrigamento</label>
   </div>
+  <input type="text" id="qual_abrigamento" placeholder="Se abrigamento, qual abrigo?">
 
   <!-- Cotidiano -->
   <h3>Cotidiano e Rotina</h3>
   <label>Cotidiano:</label><textarea id="cotidiano" rows="3"></textarea>
   <label>Rotina:</label><textarea id="rotina" rows="3"></textarea>
   <label>Educação:</label><textarea id="educacao" rows="3"></textarea>
-
-  <!-- Saúde e Comportamento -->
-  <h3>Saúde e Comportamento</h3>
-  <label>Uso de medicamentos:</label>
-  <select id="uso_medicamentos"><option>Não</option><option>Sim</option></select>
-  <input type="text" id="quais_medicamentos" placeholder="Se sim, quais?">
-  <label>Alimentação:</label>
-  <select id="alimentacao"><option>Variedade</option><option>Seletividade</option></select>
-  <input type="text" id="quais_alimentos" placeholder="Se seletividade, quais alimentos?">
-  <label>Uso de telas:</label>
-  <select id="uso_telas"><option>Não</option><option>Sim</option></select>
-  <input type="text" id="como_telas" placeholder="Se sim, como?">
-  <label>Sono:</label>
-  <select id="sono"><option>Regular</option><option>Irregular</option></select>
-  <input type="text" id="sono_irregular" placeholder="Se irregular, descreva">
 
   <!-- Sociabilidade -->
   <h3>Sociabilidade</h3>
@@ -213,9 +197,35 @@ pre {
     <input type="text" id="tipo_violencia" placeholder="Se sim, especifique o tipo">
   </div>
 
+  <!-- Saúde e Comportamento -->
+  <h3>Saúde e Comportamento</h3>
+  <label>Uso de medicamentos:</label>
+  <div class="inline-group">
+    <select id="uso_medicamentos"><option>Não</option><option>Sim</option></select>
+    <input type="text" id="quais_medicamentos" placeholder="Se sim, quais?">
+  </div>
+
+  <label>Alimentação:</label>
+  <div class="inline-group">
+    <select id="alimentacao"><option>Variedade</option><option>Seletividade</option></select>
+    <input type="text" id="quais_alimentos" placeholder="Se seletividade, quais alimentos?">
+  </div>
+
+  <label>Uso de telas:</label>
+  <div class="inline-group">
+    <select id="uso_telas"><option>Não</option><option>Sim</option></select>
+    <input type="text" id="como_telas" placeholder="Se sim, como?">
+  </div>
+
+  <label>Sono:</label>
+  <div class="inline-group">
+    <select id="sono"><option>Regular</option><option>Padrão irregular</option></select>
+    <input type="text" id="sono_descricao" placeholder="Se irregular, descrever">
+  </div>
+
   <!-- Observações -->
   <h3>Exame Psíquico / Observações</h3>
-  <textarea id="exame" rows="4"></textarea>
+  <label>Observações do estado mental:</label><textarea id="exame" rows="4"></textarea>
 
   <button type="button" onclick="gerarResumo()">Gerar Resumo</button>
 </form>
@@ -244,31 +254,55 @@ function gerarResumo(){
   resumo += 'Orientação sexual: '+document.getElementById('orientacao').value+'\n\n';
 
   resumo += '📌 Dados Econômicos\n';
-  const camposEconomicos = ['renda','programa_social','quais_programas','casa','tv','qtd_tv','carro','qtd_carro','saneamento','pessoas_casa','quem_trabalha','quem_clt','pavimentacao','aposentados','qtd_aposentados','comodos','religiao'];
-  const labelsEconomicos = ['Média de rendimentos da família','Participa de programa social','Quais programas','A casa é','Possui TV','Quantidade de TVs','Possui carro','Quantidade de carros','Possui saneamento básico','Quantidade de pessoas na casa','Quem trabalha','Quem é CLT','Possui pavimentação','Há pessoas aposentadas na casa','Quantidade de aposentados','Quantidade de cômodos','Religião'];
-  camposEconomicos.forEach((id,i)=>{resumo += labelsEconomicos[i]+': '+document.getElementById(id).value+'\n';});
+  const camposEconomicos = [
+    'renda','programa_social','quais_programas','casa','tv','qtd_tv',
+    'carro','qtd_carro','saneamento','pessoas_casa','quem_trabalha',
+    'quem_clt','pavimentacao','aposentados','qtd_aposentados',
+    'comodos','religiao'
+  ];
+  const labelsEconomicos = [
+    'Média de rendimentos da família','Participa de programa social',
+    'Quais programas','A casa é','Possui TV','Quantidade de TVs',
+    'Possui carro','Quantidade de carros','Possui saneamento básico',
+    'Quantidade de pessoas na casa','Quem trabalha','Quem é CLT',
+    'Possui pavimentação','Há pessoas aposentadas na casa',
+    'Quantidade de aposentados','Quantidade de cômodos','Religião'
+  ];
+  camposEconomicos.forEach((id,i)=>{
+    resumo += labelsEconomicos[i]+': '+document.getElementById(id).value+'\n';
+  });
 
   resumo += '\n📌 Dados Gerais\n';
-  const camposGerais = ['queixa','historico','marcos','cotidiano','rotina','educacao','atividades','exame'];
-  const labelsGerais = ['Queixa principal','Histórico e acompanhamento','Marcos do desenvolvimento','Cotidiano','Rotina','Educação','Atividades da vida diárias','Exame Psíquico / Observações'];
-  camposGerais.forEach((id,i)=>{resumo += labelsGerais[i]+': '+document.getElementById(id).value+'\n';});
+  const camposGerais = ['queixa','historico','marcos','cotidiano','rotina','educacao','atividades'];
+  const labelsGerais = ['Queixa principal','Histórico e acompanhamento','Marcos do desenvolvimento','Cotidiano','Rotina','Educação','Atividades da vida diárias'];
+  camposGerais.forEach((id,i)=>{
+    resumo += labelsGerais[i]+': '+document.getElementById(id).value+'\n';
+  });
 
+  // Com quem vive
   resumo += 'Com quem vive: ';
   document.querySelectorAll('#familia-group input[type=checkbox]').forEach(cb=>{
-    if(cb.checked) resumo += cb.value+', ';
+    if(cb.checked && cb.id !== 'abrigamento-checkbox') resumo += cb.value+', ';
   });
   if(document.getElementById('abrigamento-checkbox').checked){
-    resumo += 'Qual abrigo: '+document.getElementById('qual_abrigamento').value;
+    resumo += 'Abrigamento (qual?): '+document.getElementById('qual_abrigamento').value+', ';
   }
-  resumo = resumo.replace(/, $/,'')+'\n\n';
+  resumo = resumo.replace(/, $/,'')+'\n';
 
-  resumo += 'Uso de medicamentos: '+document.getElementById('uso_medicamentos').value+' - '+document.getElementById('quais_medicamentos').value+'\n';
-  resumo += 'Alimentação: '+document.getElementById('alimentacao').value+' - '+document.getElementById('quais_alimentos').value+'\n';
-  resumo += 'Uso de telas: '+document.getElementById('uso_telas').value+' - '+document.getElementById('como_telas').value+'\n';
-  resumo += 'Sono: '+document.getElementById('sono').value+' - '+document.getElementById('sono_irregular').value+'\n\n';
-
+  // Sociabilidade
   resumo += 'Sociabilidade: '+document.getElementById('sociabilidade').value+' - Com quem: '+document.getElementById('com_quem_sociabiliza').value+'\n';
+
+  // Exposição a violências
   resumo += 'Exposição a violências: '+document.getElementById('violencias').value+' - Tipo: '+document.getElementById('tipo_violencia').value+'\n';
+
+  // Saúde e comportamento
+  resumo += 'Uso de medicamentos: '+document.getElementById('uso_medicamentos').value+' - Quais: '+document.getElementById('quais_medicamentos').value+'\n';
+  resumo += 'Alimentação: '+document.getElementById('alimentacao').value+' - Quais alimentos: '+document.getElementById('quais_alimentos').value+'\n';
+  resumo += 'Uso de telas: '+document.getElementById('uso_telas').value+' - Como: '+document.getElementById('como_telas').value+'\n';
+  resumo += 'Sono: '+document.getElementById('sono').value+' - Descrição: '+document.getElementById('sono_descricao').value+'\n';
+
+  // Exame psíquico
+  resumo += 'Exame Psíquico / Observações: '+document.getElementById('exame').value+'\n';
 
   document.getElementById('resumo').textContent = resumo;
 }
@@ -276,3 +310,4 @@ function gerarResumo(){
 
 </body>
 </html>
+
