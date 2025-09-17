@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ficha de Acolhimento - CAPS Infantil</title>
+<style>
+body {
+  font-family: 'Comic Sans MS', Arial, sans-serif;
+  margin: 20px;
+  background-color: #fdfdfd;
+  color: #333;
+}
+h1 {
+  background: linear-gradient(90deg, #6EC1E4, #A3D9A5, #F9C5D1);
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+h3 {
+  background-color: #a3d9a5;
+  color: #333;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 25px;
+}
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+}
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.checkbox-group, .inline-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+.checkbox-group label, .inline-group label {
+  font-weight: normal;
+}
+button {
+  margin-top: 25px;
+  padding: 12px;
+  background: linear-gradient(90deg, #6EC1E4, #A3D9A5, #F9C5D1);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+pre {
+  background-color: #f4f9f9;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 25px;
+  white-space: pre-wrap;
+  border: 1px solid #ddd;
+}
+</style>
+</head>
+<body>
+
+<h1>Ficha de Acolhimento - CAPS Infantil</h1>
+
+<form id="fichaForm">
+  <!-- Tipo de Atendimento -->
+  <h3>Tipo de Atendimento</h3>
+  <label><input type="radio" name="tipo_atendimento" value="Acolhimento inicial no Caps Ij Espaço Criativo"> Acolhimento inicial</label>
+  <label><input type="radio" name="tipo_atendimento" value="Reacolhimento no Caps Ij Espaço Criativo"> Reacolhimento</label>
+
+  <!-- Dados Pessoais -->
+  <h3>Dados Pessoais</h3>
+  <label>Nome completo:</label><input type="text" id="nome">
+  <label>Data de nascimento:</label><input type="date" id="data_nascimento">
+  <label>Idade:</label><input type="number" id="idade">
+  <label>Sexo:</label>
+  <select id="sexo"><option>Masculino</option><option>Feminino</option><option>Outro</option></select>
+  <label>Responsável:</label><input type="text" id="responsavel">
+  <label>Contato:</label><input type="text" id="contato">
+
+  <label>Raça/Cor/Etnia:</label>
+  <div class="checkbox-group" id="raca-group">
+    <label><input type="radio" name="raca" value="Branca"> Branca</label>
+    <label><input type="radio" name="raca" value="Preta"> Preta</label>
+    <label><input type="radio" name="raca" value="Parda"> Parda</label>
+    <label><input type="radio" name="raca" value="Amarela"> Amarela</label>
+    <label><input type="radio" name="raca" value="Indígena"> Indígena</label>
+    <label><input type="radio" name="raca" value="Não declarado"> Não declarado</label>
+    <label><input type="radio" name="raca" value="Outro"> Outro</label>
+  </div>
+
+  <label>Identidade de gênero:</label>
+  <div class="checkbox-group" id="genero-group">
+    <label><input type="radio" name="genero" value="Homem cis"> Homem cis</label>
+    <label><input type="radio" name="genero" value="Homem trans"> Homem trans</label>
+    <label><input type="radio" name="genero" value="Mulher cis"> Mulher cis</label>
+    <label><input type="radio" name="genero" value="Mulher trans"> Mulher trans</label>
+    <label><input type="radio" name="genero" value="Travesti"> Travesti</label>
+    <label><input type="radio" name="genero" value="Outro"> Outro</label>
+  </div>
+
+  <label>Orientação sexual:</label><input type="text" id="orientacao">
+
+  <!-- Dados Econômicos -->
+  <h3>Dados Econômicos</h3>
+  <label>Média de rendimentos da família:</label><input type="text" id="renda">
+  <label>Participa de algum programa social?</label>
+  <div class="inline-group">
+    <select id="programa_social"><option>Não</option><option>Sim</option></select>
+    <input type="text" id="quais_programas" placeholder="Se sim, quais?">
+  </div>
+  <label>A casa é:</label>
+  <select id="casa"><option>Própria</option><option>Alugada</option><option>Cedida</option><option>Ocupação</option><option>Outro</option></select>
+  <label>Possui TV?</label>
+  <div class="inline-group">
+    <select id="tv"><option>Não</option><option>Sim</option></select>
+    <input type="number" id="qtd_tv" placeholder="Quantidade">
+  </div>
+  <label>Possui carro?</label>
+  <div class="inline-group">
+    <select id="carro"><option>Não</option><option>Sim</option></select>
+    <input type="number" id="qtd_carro" placeholder="Quantidade">
+  </div>
+  <label>Possui saneamento básico?</label><select id="saneamento"><option>Sim</option><option>Não</option></select>
+  <label>Quantas pessoas moram na casa?</label><input type="number" id="pessoas_casa">
+  <label>Quem trabalha?</label><input type="text" id="quem_trabalha">
+  <label>Quem é CLT?</label><input type="text" id="quem_clt">
+  <label>Possui pavimentação?</label><select id="pavimentacao"><option>Sim</option><option>Não</option></select>
+  <label>Há pessoas aposentadas na casa?</label>
+  <div class="inline-group">
+    <select id="aposentados"><option>Não</option><option>Sim</option></select>
+    <input type="number" id="qtd_aposentados" placeholder="Se sim, quantas?">
+  </div>
+  <label>Quantos cômodos a casa tem?</label><input type="number" id="comodos">
+  <label>Religião:</label><input type="text" id="religiao">
+
+  <!-- Dados Gerais -->
+  <h3>Dados Gerais</h3>
+  <label>Queixa principal:</label><textarea id="queixa" rows="3"></textarea>
+  <label>Histórico e acompanhamento em saúde mental do paciente e família:</label><textarea id="historico" rows="4"></textarea>
+  <label>Marcos e alterações do desenvolvimento neuropsicomotor:</label><textarea id="marcos" rows="4"></textarea>
+  <label>Com quem vive (organização/contexto familiar):</label>
+  <div class="checkbox-group" id="familia-group">
+    <label><input type="checkbox" value="Pai"> Pai</label>
+    <label><input type="checkbox" value="Mãe"> Mãe</label>
+    <label><input type="checkbox" value="Irmão"> Irmão</label>
+    <label><input type="checkbox" value="Irmã"> Irmã</label>
+    <label><input type="checkbox" value="Avó"> Avó</label>
+    <label><input type="checkbox" value="Avô"> Avô</label>
+    <label><input type="checkbox" value="Tios"> Tios</label>
+    <label><input type="checkbox" value="Primos"> Primos</label>
+    <label><input type="checkbox" value="Madrasta"> Madrasta</label>
+    <label><input type="checkbox" value="Padrasto"> Padrasto</label>
+  </div>
+
+  <!-- Cotidiano -->
+  <h3>Cotidiano e Rotina</h3>
+  <label>Cotidiano:</label><textarea id="cotidiano" rows="3"></textarea>
+  <label>Rotina:</label><textarea id="rotina" rows="3"></textarea>
+  <label>Educação:</label><textarea id="educacao" rows="3"></textarea>
+
+  <!-- Sociabilidade -->
+  <h3>Sociabilidade</h3>
+  <label>Sociabilidade:</label>
+  <div class="inline-group">
+    <select id="sociabilidade"><option>Não</option><option>Sim</option></select>
+    <input type="text" id="com_quem_sociabiliza" placeholder="Com quem sociabiliza (se sim)">
+  </div>
+
+  <!-- Atividades da Vida Diária -->
+  <h3>Atividades da Vida Diária</h3>
+  <label>Atividades da vida diárias:</label><textarea id="atividades" rows="3"></textarea>
+
+  <!-- Exposição a Violências -->
+  <h3>Exposição a Violências</h3>
+  <label>Exposição a violências:</label>
+  <div class="inline-group">
+    <select id="violencias"><option>Não</option><option>Sim</option></select>
+    <input type="text" id="tipo_violencia" placeholder="Se sim, especifique o tipo">
+  </div>
+
+  <!-- Observações -->
+  <h3>Observações</h3>
+  <label>Exame Psíquico / Observações:</label><textarea id="exame" rows="4"></textarea>
+
+  <button type="button" onclick="gerarResumo()">Gerar Resumo</button>
+</form>
+
+<h3>Resumo:</h3>
+<pre id="resumo"></pre>
+
+<script>
+function getRadioValue(name){
+  const r = document.querySelector('input[name="'+name+'"]:checked');
+  return r ? r.value : '';
+}
+
+function gerarResumo(){
+  let resumo = '';
+  resumo += getRadioValue('tipo_atendimento') + '\n\n';
+
+  resumo += '📌 Dados Pessoais\n';
+  const camposPessoais = ['nome','data_nascimento','idade','sexo','responsavel','contato'];
+  const labelsPessoais = ['Nome completo','Data de nascimento','Idade','Sexo','Responsável','Contato'];
+  camposPessoais.forEach((id,i)=>{
+    resumo += labelsPessoais[i]+': '+document.getElementById(id).value+'\n';
+  });
+  resumo += 'Raça/Cor/Etnia: '+getRadioValue('raca')+'\n';
+  resumo += 'Identidade de gênero: '+getRadioValue('genero')+'\n';
+  resumo += 'Orientação sexual: '+document.getElementById('orientacao').value+'\n\n';
+
+  resumo += '📌 Dados Econômicos\n';
+  const camposEconomicos = [
+    'renda','programa_social','quais_programas','casa','tv','qtd_tv',
+    'carro','qtd_carro','saneamento','pessoas_casa','quem_trabalha',
+    'quem_clt','pavimentacao','aposentados','qtd_aposentados',
+    'comodos','religiao'
+  ];
+  const labelsEconomicos = [
+    'Média de rendimentos da família','Participa de programa social',
+    'Quais programas','A casa é','Possui TV','Quantidade de TVs',
+    'Possui carro','Quantidade de carros','Possui saneamento básico',
+    'Quantidade de pessoas na casa','Quem trabalha','Quem é CLT',
+    'Possui pavimentação','Há pessoas aposentadas na casa',
+    'Quantidade de aposentados','Quantidade de cômodos','Religião'
+  ];
+  camposEconomicos.forEach((id,i)=>{
+    resumo += labelsEconomicos[i]+': '+document.getElementById(id).value+'\n';
+  });
+
+  resumo += '\n📌 Dados Gerais\n';
+  const camposGerais = ['queixa','historico','marcos','cotidiano','rotina','educacao','atividades','exame'];
+  const labelsGerais = ['Queixa principal','Histórico e acompanhamento','Marcos do desenvolvimento','Cotidiano','Rotina','Educação','Atividades da vida diárias','Observações/Exame Psíquico'];
+  camposGerais.forEach((id,i)=>{
+    resumo += labelsGerais[i]+': '+document.getElementById(id).value+'\n';
+  });
+
+  resumo += 'Com quem vive: ';
+  document.querySelectorAll('#familia-group input[type=checkbox]').forEach(cb=>{
+    if(cb.checked) resumo += cb.value+', ';
+  });
+  resumo = resumo.replace(/, $/,'')+'\n';
+
+  resumo += 'Sociabilidade: '+document.getElementById('sociabilidade').value+' - Com quem: '+document.getElementById('com_quem_sociabiliza').value+'\n';
+  resumo += 'Exposição a violências: '+document.getElementById('violencias').value+' - Tipo: '+document.getElementById('tipo_violencia').value+'\n';
+
+  document.getElementById('resumo').textContent = resumo;
+}
+</script>
+
+</body>
+</html>
